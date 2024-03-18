@@ -53,11 +53,12 @@
         <button id="nextButton" onclick="nextFlashcard()" style="display:none;">Next</button>
         <button id="takeTestButton" onclick="takeTest()">Take Test</button>
         <button id="endTestButton" onclick="endTest()" style="display:none;">End Test</button>
+        <button id="shuffleButton" onclick="shuffleFlashcards()">Shuffle</button>
         <div id="dots"></div>
     </div>
 
     <!-- New form for adding flashcards -->
-    <form class="flashcard-form" id="addFlashcardForm">
+    <form class="flashcard-form" id="addFlashcardForm" style="display: block;">
         <label for="question">Question:</label>
         <input type="text" id="question" required><br><br>
         <label for="answer">Answer:</label>
@@ -192,17 +193,29 @@
         }
 
         function takeTest() {
-            document.getElementById('addFlashcardForm').style.display = 'none';
-            document.getElementById('deleteFlashcardButton').style.display = 'none';
+            // document.getElementById('addFlashcardForm').style.display = 'none';
+            // document.getElementById('deleteFlashcardButton').style.display = 'none';
             document.getElementById('takeTestButton').style.display = 'none';
             document.getElementById('endTestButton').style.display = 'inline-block';
+            addFlashcardForm.style.display = "none";
         }
 
         function endTest() {
-            document.getElementById('addFlashcardForm').style.display = 'block';
-            document.getElementById('deleteFlashcardButton').style.display = 'inline-block';
+            // document.getElementById('addFlashcardForm').style.display = 'block';
+            // document.getElementById('deleteFlashcardButton').style.display = 'inline-block';
             document.getElementById('takeTestButton').style.display = 'inline-block';
             document.getElementById('endTestButton').style.display = 'none';
+            addFlashcardForm.style.display = "block";
+        }
+
+        function shuffleFlashcards() {
+            for (let i = flashcards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [flashcards[i], flashcards[j]] = [flashcards[j], flashcards[i]];
+            }
+            currentFlashcard = 0;
+            showFlashcard(currentFlashcard);
+            updateLocalStorage();
         }
 
         init();
