@@ -16,6 +16,17 @@
 
         .flashcard-form {
             margin-top: 50px; /* Adjust the margin-top as needed */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .button-group {
+            margin-top: 20px;
+        }
+
+        .button-group button {
+            margin: 5px;
         }
 
         .dot {
@@ -49,17 +60,22 @@
         <input type="text" id="question" required><br><br>
         <label for="answer">Answer:</label>
         <input type="text" id="answer" required><br><br>
-        <button type="button" onclick="addFlashcard()">Add Flashcard</button>
+        <div class="button-group">
+            <button type="button" onclick="addFlashcard()">Add Flashcard</button>
+            <button type="button" onclick="resetFlashcards()">Reset Flashcards</button>
+            <button id="deleteFlashcardButton" onclick="deleteFlashcard()" style="display:none;">Delete Flashcard</button>
+        </div>
     </form>
 
     <script>
-        const flashcards = [];
+        let flashcards = [];
         let currentFlashcard = 0;
 
         function showFlashcard(index) {
             const flashcardElement = document.getElementById('flashcard');
             flashcardElement.innerHTML = `<p>${flashcards[index].question}</p>`;
             updateDots(index);
+            document.getElementById('deleteFlashcardButton').style.display = 'inline-block';
         }
 
         function showAnswer() {
@@ -87,6 +103,7 @@
                 actionButton.style.display = 'inline-block';
                 nextButton.style.display = 'none';
             }
+            updateLocalStorage();
         }
 
         function updateDots(index) {
@@ -123,13 +140,71 @@
             // Show the newly added flashcard
             currentFlashcard = flashcards.length - 1;
             showFlashcard(currentFlashcard);
+            updateLocalStorage();
+        }
+
+        function deleteFlashcard() {
+            flashcards.splice(currentFlashcard, 1);
+            if (flashcards.length === 0) {
+                document.getElementById('deleteFlashcardButton').style.display = 'none';
+                document.getElementById('flashcard').innerHTML = '';
+                document.getElementById('dots').innerHTML = ''; // Clear progress dots
+            } else {
+                if (currentFlashcard >= flashcards.length) {
+                    currentFlashcard = 0;
+                }
+                showFlashcard(currentFlashcard);
+            }
+            updateLocalStorage();
+        }
+
+        function resetFlashcards() {
+            flashcards = [];
+            currentFlashcard = 0;
+            document.getElementById('deleteFlashcardButton').style.display = 'none';
+            document.getElementById('flashcard').innerHTML = '';
+            document.getElementById('dots').innerHTML = ''; // Clear progress dots
+            updateLocalStorage();
+        }
+
+        function updateLocalStorage() {
+            localStorage.setItem('flashcards', JSON.stringify(flashcards));
+            localStorage.setItem('currentFlashcard', currentFlashcard);
+        }
+
+        function retrieveFromLocalStorage() {
+            const storedFlashcards = localStorage.getItem('flashcards');
+            const storedCurrentFlashcard = localStorage.getItem('currentFlashcard');
+
+            if (storedFlashcards && storedCurrentFlashcard) {
+                flashcards = JSON.parse(storedFlashcards);
+                currentFlashcard = parseInt(storedCurrentFlashcard);
+            }
         }
 
         function init() {
-            showFlashcard(currentFlashcard);
+            retrieveFromLocalStorage();
+            if (flashcards.length > 0) {
+                showFlashcard(currentFlashcard);
+            }
         }
 
         init();
+
+        // Add event listeners to input fields for Enter key press
+        document.getElementById('question').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                document.getElementById('answer').focus();
+            }
+        });
+
+        document.getElementById('answer').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                addFlashcard();
+            }
+        });
     </script>
 </body>
 </html>
