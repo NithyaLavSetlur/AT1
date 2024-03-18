@@ -1,0 +1,37 @@
+body {
+    text-align: center;
+}
+
+.flashcard-container {
+    margin: 50px auto;
+    width: 80%;
+}
+
+.flashcard-form {
+    margin-top: 50px; /* Adjust the margin-top as needed */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.button-group {
+    margin-top: 20px;
+}
+
+.button-group button {
+    margin: 5px;
+}
+
+.dot {
+    display: inline-block;
+    height: 10px;
+    width: 10px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.dot.active {
+    background-color: #4dc968;
+}
