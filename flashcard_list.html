@@ -51,6 +51,8 @@
         <div id="flashcard"></div>
         <button id="actionButton" onclick="showAnswer()">Answer</button>
         <button id="nextButton" onclick="nextFlashcard()" style="display:none;">Next</button>
+        <button id="takeTestButton" onclick="takeTest()">Take Test</button>
+        <button id="endTestButton" onclick="endTest()" style="display:none;">End Test</button>
         <div id="dots"></div>
     </div>
 
@@ -187,6 +189,20 @@
             if (flashcards.length > 0) {
                 showFlashcard(currentFlashcard);
             }
+        }
+
+        function takeTest() {
+            document.getElementById('addFlashcardForm').style.display = 'none';
+            document.getElementById('deleteFlashcardButton').style.display = 'none';
+            document.getElementById('takeTestButton').style.display = 'none';
+            document.getElementById('endTestButton').style.display = 'inline-block';
+        }
+
+        function endTest() {
+            document.getElementById('addFlashcardForm').style.display = 'block';
+            document.getElementById('deleteFlashcardButton').style.display = 'inline-block';
+            document.getElementById('takeTestButton').style.display = 'inline-block';
+            document.getElementById('endTestButton').style.display = 'none';
         }
 
         init();
