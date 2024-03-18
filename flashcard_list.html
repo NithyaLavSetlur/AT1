@@ -4,31 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flashcards</title>
+    <style>
+        body {
+            text-align: center;
+        }
+
+        .flashcard-container {
+            margin: 50px auto;
+            width: 80%;
+        }
+
+        .flashcard-form {
+            margin-top: 50px; /* Adjust the margin-top as needed */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .button-group {
+            margin-top: 20px;
+        }
+
+        .button-group button {
+            margin: 5px;
+        }
+
+        .dot {
+            display: inline-block;
+            height: 10px;
+            width: 10px;
+            margin: 0 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background-color: #4dc968;
+        }
+    </style>
 </head>
-<style>
-    body {
-    text-align: center;
-}
-
-.flashcard-container {
-    margin: 50px auto;
-    width: 80%;
-}
-
-.dot {
-    display: inline-block;
-    height: 10px;
-    width: 10px;
-    margin: 0 5px;
-    background-color: #bbb;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.dot.active {
-    background-color: #4dc968;
-}
-</style>
 <body>
     <div class="flashcard-container">
         <h1>Flashcards</h1>
@@ -37,95 +52,159 @@
         <button id="actionButton" onclick="showAnswer()">Answer</button>
         <button id="nextButton" onclick="nextFlashcard()" style="display:none;">Next</button>
         <div id="dots"></div>
-
-        <!-- New form for adding flashcards -->
-        <form id="addFlashcardForm">
-            <label for="question">Question:</label>
-            <input type="text" id="question" required>
-            <label for="answer">Answer:</label>
-            <input type="text" id="answer" required>
-            <button type="button" onclick="addFlashcard()">Add Flashcard</button>
-        </form>
     </div>
-</body>
-<script>
-    const flashcards = [
-];
-let currentFlashcard = 0;
 
-function showFlashcard(index) {
-    const flashcardElement = document.getElementById('flashcard');
-    flashcardElement.innerHTML = `<p>${flashcards[index].question}</p>`;
-    updateDots(index);
-}
+    <!-- New form for adding flashcards -->
+    <form class="flashcard-form" id="addFlashcardForm">
+        <label for="question">Question:</label>
+        <input type="text" id="question" required><br><br>
+        <label for="answer">Answer:</label>
+        <input type="text" id="answer" required><br><br>
+        <div class="button-group">
+            <button type="button" onclick="addFlashcard()">Add Flashcard</button>
+            <button type="button" onclick="resetFlashcards()">Reset Flashcards</button>
+            <button id="deleteFlashcardButton" onclick="deleteFlashcard()" style="display:none;">Delete Flashcard</button>
+        </div>
+    </form>
 
-function showAnswer() {
-    const flashcardElement = document.getElementById('flashcard');
-    const actionButton = document.getElementById('actionButton');
-    const nextButton = document.getElementById('nextButton');
-    flashcardElement.innerHTML = `<p>${flashcards[currentFlashcard].answer}</p>`;
-    actionButton.style.display = 'none';
-    nextButton.style.display = 'inline-block';
-}
+    <script>
+        let flashcards = [];
+        let currentFlashcard = 0;
 
-function nextFlashcard() {
-    const actionButton = document.getElementById('actionButton');
-    const nextButton = document.getElementById('nextButton');
-    currentFlashcard++;
+        function showFlashcard(index) {
+            const flashcardElement = document.getElementById('flashcard');
+            flashcardElement.innerHTML = `<p>${flashcards[index].question}</p>`;
+            updateDots(index);
+            document.getElementById('deleteFlashcardButton').style.display = 'inline-block';
+        }
 
-    if (currentFlashcard < flashcards.length) {
-        showFlashcard(currentFlashcard);
-        actionButton.style.display = 'inline-block';
-        nextButton.style.display = 'none';
-    } else {
-        // All flashcards shown, reset to the first one
-        currentFlashcard = 0;
-        showFlashcard(currentFlashcard);
-        actionButton.style.display = 'inline-block';
-        nextButton.style.display = 'none';
-    }
-}
+        function showAnswer() {
+            const flashcardElement = document.getElementById('flashcard');
+            const actionButton = document.getElementById('actionButton');
+            const nextButton = document.getElementById('nextButton');
+            flashcardElement.innerHTML = `<p>${flashcards[currentFlashcard].answer}</p>`;
+            actionButton.style.display = 'none';
+            nextButton.style.display = 'inline-block';
+        }
 
-function updateDots(index) {
-    const dotsContainer = document.getElementById('dots');
-    dotsContainer.innerHTML = '';
+        function nextFlashcard() {
+            const actionButton = document.getElementById('actionButton');
+            const nextButton = document.getElementById('nextButton');
+            currentFlashcard++;
 
-    for (let i = 0; i < flashcards.length; i++) {
-        const dot = document.createElement('span');
-        dot.className = 'dot';
-        dot.onclick = () => {
-            currentFlashcard = i;
+            if (currentFlashcard < flashcards.length) {
+                showFlashcard(currentFlashcard);
+                actionButton.style.display = 'inline-block';
+                nextButton.style.display = 'none';
+            } else {
+                // All flashcards shown, reset to the first one
+                currentFlashcard = 0;
+                showFlashcard(currentFlashcard);
+                actionButton.style.display = 'inline-block';
+                nextButton.style.display = 'none';
+            }
+            updateLocalStorage();
+        }
+
+        function updateDots(index) {
+            const dotsContainer = document.getElementById('dots');
+            dotsContainer.innerHTML = '';
+
+            for (let i = 0; i < flashcards.length; i++) {
+                const dot = document.createElement('span');
+                dot.className = 'dot';
+                dot.onclick = () => {
+                    currentFlashcard = i;
+                    showFlashcard(currentFlashcard);
+                };
+                dotsContainer.appendChild(dot);
+            }
+
+            const dots = dotsContainer.querySelectorAll('.dot');
+            dots[index].classList.add('active');
+        }
+
+        function addFlashcard() {
+            const questionInput = document.getElementById('question');
+            const answerInput = document.getElementById('answer');
+
+            const newFlashcard = {
+                question: questionInput.value,
+                answer: answerInput.value,
+            };
+
+            flashcards.push(newFlashcard);
+            questionInput.value = '';
+            answerInput.value = '';
+
+            // Show the newly added flashcard
+            currentFlashcard = flashcards.length - 1;
             showFlashcard(currentFlashcard);
-        };
-        dotsContainer.appendChild(dot);
-    }
+            updateLocalStorage();
+        }
 
-    const dots = dotsContainer.querySelectorAll('.dot');
-    dots[index].classList.add('active');
-}
+        function deleteFlashcard() {
+            flashcards.splice(currentFlashcard, 1);
+            if (flashcards.length === 0) {
+                document.getElementById('deleteFlashcardButton').style.display = 'none';
+                document.getElementById('flashcard').innerHTML = '';
+                document.getElementById('dots').innerHTML = ''; // Clear progress dots
+            } else {
+                if (currentFlashcard >= flashcards.length) {
+                    currentFlashcard = 0;
+                }
+                showFlashcard(currentFlashcard);
+            }
+            updateLocalStorage();
+        }
 
-function addFlashcard() {
-    const questionInput = document.getElementById('question');
-    const answerInput = document.getElementById('answer');
+        function resetFlashcards() {
+            flashcards = [];
+            currentFlashcard = 0;
+            document.getElementById('deleteFlashcardButton').style.display = 'none';
+            document.getElementById('flashcard').innerHTML = '';
+            document.getElementById('dots').innerHTML = ''; // Clear progress dots
+            updateLocalStorage();
+        }
 
-    const newFlashcard = {
-        question: questionInput.value,
-        answer: answerInput.value,
-    };
+        function updateLocalStorage() {
+            localStorage.setItem('flashcards', JSON.stringify(flashcards));
+            localStorage.setItem('currentFlashcard', currentFlashcard);
+        }
 
-    flashcards.push(newFlashcard);
-    questionInput.value = '';
-    answerInput.value = '';
+        function retrieveFromLocalStorage() {
+            const storedFlashcards = localStorage.getItem('flashcards');
+            const storedCurrentFlashcard = localStorage.getItem('currentFlashcard');
 
-    // Show the newly added flashcard
-    currentFlashcard = flashcards.length - 1;
-    showFlashcard(currentFlashcard);
-}
+            if (storedFlashcards && storedCurrentFlashcard) {
+                flashcards = JSON.parse(storedFlashcards);
+                currentFlashcard = parseInt(storedCurrentFlashcard);
+            }
+        }
 
-function init() {
-    showFlashcard(currentFlashcard);
-}
+        function init() {
+            retrieveFromLocalStorage();
+            if (flashcards.length > 0) {
+                showFlashcard(currentFlashcard);
+            }
+        }
 
-init();
-</script>
+        init();
+
+        // Add event listeners to input fields for Enter key press
+        document.getElementById('question').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                document.getElementById('answer').focus();
+            }
+        });
+
+        document.getElementById('answer').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                addFlashcard();
+            }
+        });
+    </script>
+</body>
 </html>
