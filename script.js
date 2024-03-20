@@ -58,9 +58,17 @@ function addFlashcard() {
     const questionInput = document.getElementById('question');
     const answerInput = document.getElementById('answer');
 
+    const question = questionInput.value.trim(); // Trim any leading or trailing whitespace
+    const answer = answerInput.value.trim(); // Trim any leading or trailing whitespace
+
+    if (question === '' || answer === '') {
+        alert("Please enter both question and answer before adding the flashcard.");
+        return;
+    }
+
     const newFlashcard = {
-        question: questionInput.value,
-        answer: answerInput.value,
+        question: question,
+        answer: answer,
     };
 
     flashcards.push(newFlashcard);
@@ -72,6 +80,7 @@ function addFlashcard() {
     showFlashcard(currentFlashcard);
     updateLocalStorage();
 }
+
 
 function updateDeletedFlashcardsList() {
     const deletedFlashcardsList = document.getElementById('deletedFlashcardsList');
