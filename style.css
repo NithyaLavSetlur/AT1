@@ -35,3 +35,28 @@ body {
 .dot.active {
     background-color: #4dc968;
 }
+
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100%;
+    background-color: #f4f4f4;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+#deletedFlashcardsList {
+    list-style: none;
+    padding: 0;
+}
+
+#deletedFlashcardsList li {
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+#deletedFlashcardsList li:hover {
+    background-color: #ddd;
+}

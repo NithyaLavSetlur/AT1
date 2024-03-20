@@ -73,8 +73,35 @@ function addFlashcard() {
     updateLocalStorage();
 }
 
+function updateDeletedFlashcardsList() {
+    const deletedFlashcardsList = document.getElementById('deletedFlashcardsList');
+    deletedFlashcardsList.innerHTML = '';
+
+    for (let i = 0; i < recentlyDeletedFlashcards.length; i++) {
+        const flashcard = recentlyDeletedFlashcards[i];
+        const listItem = document.createElement('li');
+        listItem.textContent = flashcard.question;
+        listItem.onclick = function() {
+            restoreFlashcard(i);
+        };
+        deletedFlashcardsList.appendChild(listItem);
+    }
+}
+
+let recentlyDeletedFlashcards = [];
+
+function restoreFlashcard(index) {
+    const restoredFlashcard = recentlyDeletedFlashcards[index];
+    flashcards.push(restoredFlashcard);
+    recentlyDeletedFlashcards.splice(index, 1);
+    updateLocalStorage();
+    showFlashcard(currentFlashcard);
+    updateDeletedFlashcardsList();
+}
+
 function deleteFlashcard() {
-    flashcards.splice(currentFlashcard, 1);
+    recentlyDeletedFlashcards.push(flashcards[currentFlashcard]);
+    flashcards.splice(currentFlashcard, 1); // Remove the flashcard from the array
     if (flashcards.length === 0) {
         document.getElementById('deleteFlashcardButton').style.display = 'none';
         document.getElementById('flashcard').innerHTML = '';
@@ -86,6 +113,7 @@ function deleteFlashcard() {
         showFlashcard(currentFlashcard);
     }
     updateLocalStorage();
+    updateDeletedFlashcardsList(); // Update the sidebar with deleted flashcards
 }
 
 function resetFlashcards() {
