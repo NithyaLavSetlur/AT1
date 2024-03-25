@@ -1,30 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Basic Setup -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flashcards</title>
+    <title>Flashcards</title> <!-- Title text and Stylesheet Linking -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <div class="container">
-            <h1>Flashcards</h1>
+            <h1>Flashcards</h1> <!-- Website header -->
         </div>
     </header>
-    <div class="flashcard-container">
+    <div class="flashcard-container"> <!-- Subheadings -->
         <h1>Flashcards</h1>
         <h2>Questions and Answers</h2>
         <div id="flashcard"></div>
+        <!-- Button Identities for Showing, Hiding, Shuffling, Practicing, and Carouselling the Flashcards being displayed -->
         <button id="actionButton" onclick="showAnswer()">Answer</button>
         <button id="nextButton" onclick="nextFlashcard()" style="display:none;">Next</button>
         <button id="takeTestButton" onclick="takeTest()">Revise</button>
         <button id="endTestButton" onclick="endTest()" style="display:none;">Edit</button>
         <button id="shuffleButton" onclick="shuffleFlashcards()">Shuffle</button>
-        <div id="dots"></div>
+        <div id="dots"></div> <!-- Identity of Progress Dots function -->
     </div>
     
-    <div id="sidebar">
+    <div id="sidebar"> <!-- Identity of Sidebar function and Header -->
         <h2>Recently Deleted Flashcards</h2>
         <ul id="deletedFlashcardsList"></ul>
     </div>    
@@ -35,15 +37,16 @@
         <input type="text" id="question" required><br><br>
         <label for="answer">Answer:</label>
         <input type="text" id="answer" required><br><br>
-        <div class="button-group">
+        <div class="button-group"> <!-- Class for Buttons in adding flashcards form -->
             <button type="button" onclick="addFlashcard()">Add Flashcard</button>
             <button type="button" onclick="resetFlashcards()">Reset Flashcards</button>
             <button id="deleteFlashcardButton" onclick="deleteFlashcard()" style="display:none;">Delete Flashcard</button><br>
-            <button onclick="logout()">Logout</button>
+            <!-- <button onclick="logout()">Logout</button> -->
         </div>
     </form>
 
+    <!-- Linking of Javascript files for main functioning and authorisation -->
     <script src="script.js"></script>
-    <script src="auth.js"></script>
+    <!-- <script src="auth.js"></script> -->
 </body>
 </html>
