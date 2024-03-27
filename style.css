@@ -1,3 +1,4 @@
+/* Main Body */
 body {
     text-align: center;
     font-family: Arial, sans-serif;
@@ -6,9 +7,9 @@ body {
 }
 
 header {
-    background-color: #333;
+    background-color: #333333;
     color: #fff;
-    padding: 10px 0;
+    padding: 4px 0;
 }
 
 .container {
@@ -22,6 +23,28 @@ header {
 
 .container h1 {
     margin: 0;
+}
+
+/* Title in Header */
+.title-container {
+    position: absolute;
+    left: 249px; /* Adjust as needed */
+    top: 0;
+}
+
+.header-title {
+    color: rgba(255, 255, 255, 0.811); /* Adjust text color as needed */
+    margin: 0;
+}
+
+/* Subject Container in Header */
+.subject-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 11.1px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
 }
 
 /* Flashcards Display Array */

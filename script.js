@@ -12,6 +12,20 @@ let recentlyDeletedFlashcards = [];
 // Initialise and Setup before running program
 function init() {
     retrieveFromLocalStorage();
+    const subjectInput = document.getElementById('subjectInput');
+    const subjectText = document.getElementById('subjectText');
+    const changeSubjectButton = document.getElementById('changeSubjectButton');
+
+    if (subject) {
+        subjectInput.style.display = 'none';
+        subjectText.textContent = subject;
+        subjectText.style.display = 'inline-block';
+        changeSubjectButton.style.display = 'inline-block';
+    } else {
+        subjectText.style.display = 'none';
+        changeSubjectButton.style.display = 'none';
+    }
+
     if (flashcards.length > 0) {
         showFlashcard(currentFlashcard);
     }
@@ -159,6 +173,7 @@ function updateLocalStorage() {
 
 // When user clicks 'Revise' Button --> View Flashcards in Test format (Add, Delete etc forms are hidden)
 function takeTest() {
+    document.getElementById('reviseInfo').style.display = 'none'; // Hide the text
     document.getElementById('addFlashcardForm').style.display = 'none'; // Hide 'Add Flashcard' and related Forms
     document.getElementById('deleteFlashcardButton').style.display = 'none'; // Hide 'Delete Flashcard' Button
     document.getElementById('takeTestButton').style.display = 'none'; // Hide 'Revise' Button
@@ -167,11 +182,13 @@ function takeTest() {
 
 // User clicks 'Edit' Button --> Able to edit flashcards again (Add Delete etc forms are shown)
 function endTest() {
+    document.getElementById('reviseInfo').style.display = 'block'; // Show the text
     document.getElementById('addFlashcardForm').style.display = 'block'; // Show 'Add Flashcard' and related forms
     document.getElementById('deleteFlashcardButton').style.display = 'inline-block'; // Show 'Delete Flashcard' Button
     document.getElementById('takeTestButton').style.display = 'inline-block'; // Show 'Revise Button'
     document.getElementById('endTestButton').style.display = 'none'; // Hide 'Edit' Button
 }
+
 
 // Used clicks 'Shuffle' Button --> Flashcards are reordered randomly in display array
 function shuffleFlashcards() {
@@ -209,6 +226,41 @@ function restoreFlashcard(index) {
     updateLocalStorage();
     showFlashcard(currentFlashcard); // Add the flashcard to the display array, and update progress dots
     updateDeletedFlashcardsList(); // Update the Recently Deleted Flashcards List accordingly
+}
+
+// Check if subject exists in local storage
+let subject = localStorage.getItem('flashcardsSubject');
+
+// Initialize subject display
+if (subject) {
+    document.getElementById('subjectText').textContent = subject;
+    document.getElementById('subjectText').style.display = 'inline-block';
+    document.getElementById('changeSubjectButton').style.display = 'inline-block';
+} else {
+    document.getElementById('subjectInput').style.display = 'inline-block';
+}
+
+// Handle subject input
+function handleSubjectInput(event) {
+    if (event.key === 'Enter') {
+        const subjectInput = document.getElementById('subjectInput');
+        const subjectText = document.getElementById('subjectText');
+        subject = subjectInput.value.trim();
+        subjectText.textContent = subject;
+        subjectInput.style.display = 'none';
+        subjectText.style.display = 'inline-block';
+        document.getElementById('changeSubjectButton').style.display = 'inline-block';
+        localStorage.setItem('flashcardsSubject', subject);
+    }
+}
+
+// Change subject
+function changeSubject() {
+    document.getElementById('subjectInput').value = '';
+    document.getElementById('subjectInput').style.display = 'inline-block';
+    document.getElementById('subjectText').style.display = 'none';
+    document.getElementById('changeSubjectButton').style.display = 'none';
+    localStorage.removeItem('flashcardsSubject');
 }
 
 // Add event listeners to input fields for Enter key press

@@ -4,26 +4,40 @@
     <!-- Basic Setup -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flashcards</title> <!-- Title text and Stylesheet Linking -->
+    <title>Flashcards Application</title> <!-- Title text and Stylesheet Linking -->
     <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
     <header>
         <div class="container">
-            <h1>Flashcards</h1> <!-- Website header -->
+            <h1>Flashcard</h1> <!-- Website header -->
+        </div>
+        <div class="title-container">
+            <h1 class="header-title">Flashcards Application</h1>
+        </div>
+        <!-- Section for subject input -->
+        <div class="subject-container">
+            <input type="text" id="subjectInput" placeholder="Enter subject" onkeydown="handleSubjectInput(event)">
+            <span id="subjectText" style="display: none;"></span>
+            <button id="changeSubjectButton" style="display: none;" onclick="changeSubject()">Change</button>
         </div>
     </header>
     <div class="flashcard-container"> <!-- Subheadings -->
-        <h1>Flashcards</h1>
-        <h2>Questions and Answers</h2>
+        <h1>Flashcard</h1>
+        <h2>Study Decks</h2>
         <div id="flashcard"></div>
-        <!-- Button Identities for Showing, Hiding, Shuffling, Practicing, and Carouselling the Flashcards being displayed -->
+        <!-- Button Identities for Progress Dots, Showing, Hiding, Shuffling, Practicing, and Carouselling the Flashcards being displayed -->
+        <div id="dots"></div>
+        <br>
         <button id="actionButton" onclick="showAnswer()">Answer</button>
         <button id="nextButton" onclick="nextFlashcard()" style="display:none;">Next</button>
-        <button id="takeTestButton" onclick="takeTest()">Revise</button>
-        <button id="endTestButton" onclick="endTest()" style="display:none;">Edit</button>
         <button id="shuffleButton" onclick="shuffleFlashcards()">Shuffle</button>
-        <div id="dots"></div> <!-- Identity of Progress Dots function -->
+        <br><br>
+        <h5 id="reviseInfo">Press the 'Revise' button to view the Flashcards separately!</h5>
+        <button id="takeTestButton" onclick="takeTest()">Revise - Test Format</button>
+        <button id="endTestButton" onclick="endTest()" style="display:none;">Edit - Reopen the Editing Form</button>
+
     </div>
     
     <div id="sidebar"> <!-- Identity of Sidebar function and Header -->
@@ -41,6 +55,7 @@
             <button type="button" onclick="addFlashcard()">Add Flashcard</button>
             <button type="button" onclick="resetFlashcards()">Reset Flashcards</button>
             <button id="deleteFlashcardButton" onclick="deleteFlashcard()" style="display:none;">Delete Flashcard</button><br>
+            <h5>When you Delete a Flashcard, it is saved to the Recently Deleted Sidebar!</h5>
             <!-- <button onclick="logout()">Logout</button> -->
         </div>
     </form>
