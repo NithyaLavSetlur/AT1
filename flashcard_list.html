@@ -6,15 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flashcards Application</title> <!-- Title text and Stylesheet Linking -->
     <link rel="stylesheet" href="style.css">
-
+    <link rel="icon" href="logo.jpg"> <!-- Add the image to the browser tab -->
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1>Flashcard</h1> <!-- Website header -->
+        <div class="container"> <!-- Header Container -->
+            <h1>Flashcards Application</h1> 
         </div>
         <div class="title-container">
-            <h1 class="header-title">Flashcards Application</h1>
+            <!-- <h1 class="header-title"> Flashcards </h1>  -->
+            <div class="logo"> <img src="logo.jpg" alt="Logo"> </div> <!-- Website header + Logo -->
         </div>
         <!-- Section for subject input -->
         <div class="subject-container">
@@ -30,9 +31,12 @@
         <!-- Button Identities for Progress Dots, Showing, Hiding, Shuffling, Practicing, and Carouselling the Flashcards being displayed -->
         <div id="dots"></div>
         <br>
-        <button id="actionButton" onclick="showAnswer()">Answer</button>
-        <button id="nextButton" onclick="nextFlashcard()" style="display:none;">Next</button>
-        <button id="shuffleButton" onclick="shuffleFlashcards()">Shuffle</button>
+        <button id="actionButton" onclick="showAnswer()">
+            <img src="answer.jpg" alt="Answer"></button>
+        <button id="nextButton" onclick="nextFlashcard()" style="display:none;">
+            <img src="question.jpg" alt="Next Question"></button>
+        <button id="shuffleButton" onclick="shuffleFlashcards()">
+            <img src="shuffle.png" alt="Shuffle"></button>
         <br><br>
         <h5 id="reviseInfo">Press the 'Revise' button to
             <br>view the Flashcards separately!</h5>
@@ -46,24 +50,33 @@
         <ul id="deletedFlashcardsList"></ul>
     </div>    
 
-    <!-- New form for adding flashcards -->
+<!-- New form for adding flashcards -->
     <form class="flashcard-form" id="addFlashcardForm" style="display: block;">
         <label for="question">Question:</label>
         <input type="text" id="question" required><br><br>
         <label for="answer">Answer:</label>
         <input type="text" id="answer" required><br><br>
         <div class="button-group"> <!-- Class for Buttons in adding flashcards form -->
-            <button type="button" onclick="addFlashcard()">Add Flashcard</button>
-            <button type="button" onclick="resetFlashcards()">Reset Flashcards</button>
-            <button id="deleteFlashcardButton" onclick="deleteFlashcard()" style="display:none;">Delete Flashcard</button><br>
+            <button type="button" onclick="addFlashcard()">
+                <img src="add.png" alt="Add Flashcard"></button>
+            <button type="button" onclick="resetFlashcards()">
+                <img src="reset.png" alt="Reset Flashcards"></button>
+            <button id="deleteFlashcardButton" onclick="deleteFlashcard()" style="display:none;">
+                <img src="delete.png" alt="Delete Flashcard"></button><br>
             <h5>When you Delete a Flashcard, it is
-                <br>saved to the Recently Deleted Sidebar! <br><br>
+                <br>saved to the Recently Deleted Sidebar! <br>
                 <br>When you click on a Flashcard in the Sidebar,
-                <br>it is restored into your  Study Deck!</h5> 
+                <br>it is restored into your  Study Deck!</h5><br><br> 
             <!-- <button onclick="logout()">Logout</button> -->
         </div>
     </form>
-
+    <div class="video-tutorial-container">
+        <h2>Tutorial for Software</h2>
+        <video controls>
+            <source src="tutorial.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
     <!-- Linking of Javascript files for main functioning and authorisation -->
     <script src="script.js"></script>
     <!-- <script src="auth.js"></script> -->

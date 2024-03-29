@@ -12,6 +12,7 @@ header {
     padding: 4px 0;
 }
 
+/* Header Container */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -28,14 +29,14 @@ header {
 /* Title in Header */
 .title-container {
     position: absolute;
-    left: 249px; /* Adjust as needed */
+    left: 360px;
     top: 0;
 }
 
-.header-title {
-    color: rgba(255, 255, 255, 0.811); /* Adjust text color as needed */
+/* .header-title {
+    color: rgba(255, 255, 255, 0.811);
     margin: 0;
-}
+} */
 
 /* Subject Container in Header */
 .subject-container {
@@ -67,6 +68,11 @@ header {
 
 .button-group button {
     margin: 5px;
+}
+
+button img {
+    width: 20px;
+    height: 20px;
 }
 
 /* Progress Dots */
@@ -110,4 +116,35 @@ header {
 /* Interaction with elements in Deleted Flashcards List */
 #deletedFlashcardsList li:hover {
     background-color: #ddd;
+}
+
+/* Logo in header */
+header img {
+    max-width: 45px;
+    height: auto;
+    margin-left: 50px;
+}
+
+.logo {
+    position: absolute;
+    left: 300px;
+    top: 0;
+    display: flex;
+    align-items: center;
+}
+
+/* Tutorial Video Styles */
+.video-tutorial-container {
+    margin-top: 0px;
+    margin-right: 30px;
+    text-align: center;
+}
+
+.video-tutorial-container h2 {
+    margin-bottom: 10px;
+}
+
+.video-tutorial-container video {
+    width: 1000px;
+    height: auto;
 }

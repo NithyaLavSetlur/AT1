@@ -129,6 +129,11 @@ function updateDots(index) {
         dot.onclick = () => {
             currentFlashcard = i;
             showFlashcard(currentFlashcard);
+            const actionButton = document.getElementById('actionButton');
+            const nextButton = document.getElementById('nextButton');
+            // Display the answer button and hide the next button if it's shown
+            actionButton.style.display = 'inline-block';
+            nextButton.style.display = 'none';
         };
         dotsContainer.appendChild(dot);
     }
