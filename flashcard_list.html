@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flashcards Application</title> <!-- Title text and Stylesheet Linking -->
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="logo.jpg"> <!-- Add the image to the browser tab -->
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="icon" href="media/logo.jpg"> <!-- Add the image to the browser tab -->
 </head>
 <body>
     <header>
@@ -15,7 +15,7 @@
         </div>
         <div class="title-container">
             <!-- <h1 class="header-title"> Flashcards </h1>  -->
-            <div class="logo"> <img src="logo.jpg" alt="Logo"> </div> <!-- Website header + Logo -->
+            <div class="logo"> <img src="media/logo.jpg" alt="Logo"> </div> <!-- Website header + Logo -->
         </div>
         <!-- Section for subject input -->
         <div class="subject-container">
@@ -32,11 +32,11 @@
         <div id="dots"></div>
         <br>
         <button id="actionButton" onclick="showAnswer()">
-            <img src="answer.jpg" alt="Answer"></button>
+            <img src="media/answer.jpg" alt="Answer"></button>
         <button id="nextButton" onclick="nextFlashcard()" style="display:none;">
-            <img src="question.jpg" alt="Next Question"></button>
+            <img src="media/question.jpg" alt="Next Question"></button>
         <button id="shuffleButton" onclick="shuffleFlashcards()">
-            <img src="shuffle.png" alt="Shuffle"></button>
+            <img src="media/shuffle.png" alt="Shuffle"></button>
         <br><br>
         <h5 id="reviseInfo">Press the 'Revise' button to
             <br>view the Flashcards separately!</h5>
@@ -58,11 +58,11 @@
         <input type="text" id="answer" required><br><br>
         <div class="button-group"> <!-- Class for Buttons in adding flashcards form -->
             <button type="button" onclick="addFlashcard()">
-                <img src="add.png" alt="Add Flashcard"></button>
+                <img src="media/add.png" alt="Add Flashcard"></button>
             <button type="button" onclick="resetFlashcards()">
-                <img src="reset.png" alt="Reset Flashcards"></button>
+                <img src="media/reset.png" alt="Reset Flashcards"></button>
             <button id="deleteFlashcardButton" onclick="deleteFlashcard()" style="display:none;">
-                <img src="delete.png" alt="Delete Flashcard"></button><br>
+                <img src="media/delete.png" alt="Delete Flashcard"></button><br>
             <h5>When you Delete a Flashcard, it is
                 <br>saved to the Recently Deleted Sidebar! <br>
                 <br>When you click on a Flashcard in the Sidebar,
@@ -73,12 +73,12 @@
     <div class="video-tutorial-container">
         <h2>Tutorial for Software</h2>
         <video controls>
-            <source src="tutorial.mp4" type="video/mp4">
+            <source src="media/tutorial.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
     <!-- Linking of Javascript files for main functioning and authorisation -->
-    <script src="script.js"></script>
+    <script src="static/script.js"></script>
     <!-- <script src="auth.js"></script> -->
 </body>
 </html>
