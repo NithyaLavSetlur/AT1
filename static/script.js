@@ -183,6 +183,11 @@ function takeTest() {
     document.getElementById('deleteFlashcardButton').style.display = 'none'; // Hide 'Delete Flashcard' Button
     document.getElementById('takeTestButton').style.display = 'none'; // Hide 'Revise' Button
     document.getElementById('endTestButton').style.display = 'inline-block'; // Show 'Edit' Button
+    
+    // Increase font size and width of flashcard container
+    const flashcardContainer = document.querySelector('.flashcard-container');
+    flashcardContainer.style.fontSize = '1.5em'; // Adjust font size
+    flashcardContainer.style.width = '90%'; // Adjust width
 }
 
 // User clicks 'Edit' Button --> Able to edit flashcards again (Add Delete etc forms are shown)
@@ -192,8 +197,12 @@ function endTest() {
     document.getElementById('deleteFlashcardButton').style.display = 'inline-block'; // Show 'Delete Flashcard' Button
     document.getElementById('takeTestButton').style.display = 'inline-block'; // Show 'Revise Button'
     document.getElementById('endTestButton').style.display = 'none'; // Hide 'Edit' Button
-}
 
+    // Revert font size and width of flashcard container to original
+    const flashcardContainer = document.querySelector('.flashcard-container');
+    flashcardContainer.style.fontSize = ''; // Revert font size to default
+    flashcardContainer.style.width = ''; // Revert width to default
+}
 
 // Used clicks 'Shuffle' Button --> Flashcards are reordered randomly in display array
 function shuffleFlashcards() {
